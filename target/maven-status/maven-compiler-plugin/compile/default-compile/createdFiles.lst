@@ -1,0 +1,4 @@
+School\Management\Application.class
+School\Management\Model\User.class
+School\Management\Controllers\UserController.class
+School\Management\Entities\User.class
