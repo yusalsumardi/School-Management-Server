@@ -4,6 +4,7 @@ package School.Management.Controllers;
 import School.Management.Entities.UserEntity;
 import School.Management.Response.CommonResponseGenerator;
 import School.Management.Response.CommonResponse;
+import School.Management.Services.Login.LoginLogoutService;
 import School.Management.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LoginLogoutService loginLogoutService;
 
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
@@ -112,6 +116,21 @@ public class UserController {
                 return commonResponseGenerator.dataIsNull(param, "Username");
             }
             return commonResponseGenerator.successResponse(users, "Success");
+        } catch (Exception e){
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "login")
+    public CommonResponse<UserEntity> Login(@RequestBody UserEntity param){
+        try {
+            boolean isLogin;
+            UserEntity user = userService.findByUsername(param.getUsername());
+            isLogin = loginLogoutService.LoginMet(param);
+            System.out.println(isLogin);
+            if (isLogin){
+                return commonResponseGenerator.successResponse(user, "Success");
+            } return commonResponseGenerator.dataIsNull(param.getUsername(), "Login");
         } catch (Exception e){
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
