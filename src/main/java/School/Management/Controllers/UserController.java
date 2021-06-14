@@ -128,7 +128,8 @@ public class UserController {
             UserEntity user = userService.findByUsername(param.getUsername());
             isLogin = loginLogoutService.LoginMet(param);
             System.out.println(isLogin);
-            if (isLogin){
+            if (isLogin==false){
+                userService.updateIsLogin(user.getId());
                 return commonResponseGenerator.successResponse(user, "Success");
             } return commonResponseGenerator.dataIsNull(param.getUsername(), "Login");
         } catch (Exception e){

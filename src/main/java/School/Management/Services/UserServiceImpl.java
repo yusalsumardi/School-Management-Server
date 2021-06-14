@@ -2,6 +2,7 @@ package School.Management.Services;
 
 import School.Management.Entities.UserEntity;
 import School.Management.Repositories.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserEntity addUser(UserEntity param) {
+        UserEntity newUser = param;
+        param.setIsActive(1);
+        param.setIsLogin(0);
         return userRepository.save(param);
     }
 
@@ -59,5 +63,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserEntity findByUsername(String param) {
         return userRepository.findByUsername(param);
+    }
+
+    @Override
+    public UserEntity updateIsLogin(Integer param) {
+        UserEntity updateUser = userRepository.getById(param);
+        if (updateUser.getIsLogin()==0){
+            updateUser.setIsLogin(1);
+        }
+        return userRepository.save(updateUser);
     }
 }

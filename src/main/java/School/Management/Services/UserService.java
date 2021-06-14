@@ -26,4 +26,6 @@ public interface UserService {
     UserEntity updateUser(UserEntity param);
 
     UserEntity findByUsername(String param);
+
+    UserEntity updateIsLogin(Integer param);
 }

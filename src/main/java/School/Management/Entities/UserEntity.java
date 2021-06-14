@@ -13,6 +13,8 @@ public class UserEntity {
     private String username;
     private String password;
     private int role;
+    private int isLogin;
+    private int isActive;
 
     public int getId() {
         return id;
@@ -54,6 +56,22 @@ public class UserEntity {
         this.role = role;
     }
 
+    public int getIsLogin() {
+        return isLogin;
+    }
+
+    public void setIsLogin(int isLogin) {
+        this.isLogin = isLogin;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
     @Override
     public String toString() {
         return "UserEntity{" +
@@ -62,6 +80,8 @@ public class UserEntity {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", isLogin=" + isLogin +
+                ", isActive=" + isActive +
                 '}';
     }
 }
