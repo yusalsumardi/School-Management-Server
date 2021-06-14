@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-    
+
 
     @Autowired
     UserService userService;
@@ -98,7 +98,7 @@ public class UserController {
             List<UserEntity> users;
             users = userService.findByName(param);
             if (users == null) {
-                return commonResponseGenerator.dataIsNull(param, "Name");
+                return commonResponseGenerator.dataIsNull(param);
             }
             return commonResponseGenerator.successResponse(users, "Success");
         } catch (Exception e){
@@ -113,7 +113,7 @@ public class UserController {
             users = userService.findByUsername(param);
             System.out.println(users);
             if (users == null) {
-                return commonResponseGenerator.dataIsNull(param, "Username");
+                return commonResponseGenerator.dataIsNull(param);
             }
             return commonResponseGenerator.successResponse(users, "Success");
         } catch (Exception e){
@@ -124,14 +124,13 @@ public class UserController {
     @GetMapping(value = "login")
     public CommonResponse<UserEntity> Login(@RequestBody UserEntity param){
         try {
-            boolean isLogin;
-            UserEntity user = userService.findByUsername(param.getUsername());
-            isLogin = loginLogoutService.LoginMet(param);
-            System.out.println(isLogin);
-            if (isLogin==false){
-                userService.updateIsLogin(user.getId());
-                return commonResponseGenerator.successResponse(user, "Success");
-            } return commonResponseGenerator.dataIsNull(param.getUsername(), "Login");
+            boolean userValid = loginLogoutService.LoginMet(param);
+            System.out.println(userValid);
+            if (userValid) {
+                UserEntity user = userService.updateIsLogin(param.getUsername());
+                return commonResponseGenerator.successResponse(user, "Login Success");
+            }
+            return commonResponseGenerator.dataIsNull(param.getUsername());
         } catch (Exception e){
             return commonResponseGenerator.failedResponse(e.getMessage());
         }

@@ -21,10 +21,10 @@ public class CommonResponseGenerator<T> {
         return commonResponse;
     }
 
-    public <T> CommonResponse<T> dataIsNull(String data, String field){
+    public <T> CommonResponse<T> dataIsNull(String data){
         CommonResponse commonResponse = new CommonResponse<>();
         commonResponse.setStatus("400");
-        commonResponse.setMessage(field + " " + data + " Is Not Found");
+        commonResponse.setMessage(data + " Is Not Found");
         return commonResponse;
     }
 }

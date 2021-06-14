@@ -17,9 +17,9 @@ public class LoginLogoutServiceImpl implements LoginLogoutService{
 
     @Override
     public boolean LoginMet(UserEntity param) {
-        UserEntity userInput = param;
         UserEntity userDB = userRepository.findByUsername(param.getUsername());
-        if (userInput.getUsername().equals(userDB.getUsername())&&userInput.getPassword().equals(userDB.getPassword())){
+        if (param.getUsername().equals(userDB.getUsername())&&param.getPassword().equals(userDB.getPassword())){
+            System.out.println("Success Validasi Username && Password");
             return true;
         }
         return false;

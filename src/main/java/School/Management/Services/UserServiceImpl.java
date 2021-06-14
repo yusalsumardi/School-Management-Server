@@ -66,11 +66,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserEntity updateIsLogin(Integer param) {
-        UserEntity updateUser = userRepository.getById(param);
+    public UserEntity updateIsLogin(String  param) {
+        UserEntity updateUser = userRepository.findByUsername(param);
+        System.out.println("Before: " + updateUser.getIsLogin());
         if (updateUser.getIsLogin()==0){
             updateUser.setIsLogin(1);
         }
+        System.out.println("After: " + updateUser.getIsLogin());
         return userRepository.save(updateUser);
     }
 }

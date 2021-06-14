@@ -27,5 +27,5 @@ public interface UserService {
 
     UserEntity findByUsername(String param);
 
-    UserEntity updateIsLogin(Integer param);
+    UserEntity updateIsLogin(String param);
 }
